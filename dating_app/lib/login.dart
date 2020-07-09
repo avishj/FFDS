@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var verify = await networkData.getData();
     if(verify=="email not verified")
       {
-        
+
         Alert(context: context, title: 'Please verify email').show();
         sendEmail();
       }
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var userData = await network.getData();
     if(userData['response']=="Login successful")
       {
-       
+
         verifyEmail();
 
         Matches(email);
