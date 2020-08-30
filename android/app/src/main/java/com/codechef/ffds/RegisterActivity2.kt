@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RegisterActivity2 : AppCompatActivity() {
 
-    var gender:String?=null
+    var gender:String?="Male"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,6 @@ class RegisterActivity2 : AppCompatActivity() {
 
     fun onRadioButtonClicked(view: View) {
         if (view is RadioButton) {
-            val checked = view.isChecked
             gender= when (view.getId()) {
                 R.id.male -> "Male"
                 R.id.female -> "Female"
@@ -53,7 +52,7 @@ class RegisterActivity2 : AppCompatActivity() {
 
     fun registerUser(name:String, phone:String){
 
-        val tinyDB:TinyDB= TinyDB(baseContext)
+        val tinyDB= TinyDB(baseContext)
         tinyDB.putString("Name", name)
         tinyDB.putString("Phone", phone)
         tinyDB.putString("Gender", gender)
@@ -81,6 +80,10 @@ class RegisterActivity2 : AppCompatActivity() {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 Toast.makeText(applicationContext, response.message(), Toast.LENGTH_SHORT).show()
+                if(response.message()=="Created") {
+                    startActivity(Intent(baseContext, MainActivity::class.java))
+                    finish()
+                }
             }
         })
     }
